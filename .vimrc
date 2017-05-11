@@ -86,6 +86,7 @@ Plug 'rdnetto/YCM-Generator',{'branch': 'stable'}
 "Plug 'jeaye/color_coded', {'do': 'mkdir build && cd build && cmake .. && make && make install'}
 Plug 'liwangmj/green_vim_switchtoinc'
 Plug 'mhinz/vim-startify'
+Plug 'maralla/completor.vim',{'for': 'python'}
 "Plug 'jceb/vim-hier'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'zchee/deoplete-jedi'
@@ -125,7 +126,7 @@ set completeopt=longest,menu
 "补全菜单高度
 set pumheight=15
 let g:ycm_min_num_of_chars_for_completion = 1
-"let g:ycm_path_to_python_interpreter='/usr/bin/python'
+let g:ycm_path_to_python_interpreter='/usr/bin/python'
 let g:ycm_collect_identifiers_from_tage_files=1
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_complete_in_comments=1
@@ -168,6 +169,7 @@ let g:ycm_key_invoke_completion = '<F6>'
   "\   'erlang' : [':'],
   "\ }
   "
+let g:ycm_filetype_blacklist = {'python': 1, 'tagbar': 1, 'qf': 1, 'notes': 1, 'markdown': 1, 'unite': 1, 'vimwiki': 1, 'pandoc': 1, 'infolog': 1, 'mail': 1}
 
 " 跳转到定义
 nmap gf :YcmCompleter GoTo<CR>
@@ -186,10 +188,11 @@ nmap t :YcmCompleter GetType<CR>
 
 "nerdtree
 map <F2> :NERDTreeToggle<CR>
-imap <F2> :NERDTreeIgnore<CR>
 
 map <F3> :TagbarToggle<CR>
 map <F4> <leader>ci
+nmap <space> :
+vmap <space> :
 
 let NERDTreeChDirMode=2
 ""let NERDTreeQuitOnOpen=1	"打开文件时关闭树"
@@ -415,3 +418,7 @@ function ResetFlags()
     let g:cur_file = expand("%:p:h")
     YcmCompleter ClearCompilationFlagCache
 endfunction
+
+
+let g:completor_python_binary = '/usr/bin/python'
+

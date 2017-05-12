@@ -3,7 +3,7 @@
 " Normally we use vim-extensions. If you want true vi-compatibility
 " remove change the following statements set nocompatible
 " Use Vim defaults instead of 100% vi compatibility
-set backspace=2		" more powerful backspacing
+set backspace=2     " more powerful backspacing
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
@@ -11,47 +11,47 @@ au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
 au BufWrite /private/etc/pw.* set nowritebackup nobackup
 
 
-set number	"显示行号"
+set number  "显示行号"
 set guioptions-=r " 隐藏右侧滚动条
 set guioptions-=L " 隐藏左侧滚动条
 set guioptions-=b " 隐藏底部滚动条
 set guioptions-=T
 set showtabline=0 " 隐藏Tab栏
-syntax on	"开启语法高亮"
+syntax on   "开启语法高亮"
 set linespace=1
-set nowrap	"设置不折行"
-set fileformat=unix	"设置以unix的格式保存文件"
+set nowrap  "设置不折行"
+set fileformat=unix "设置以unix的格式保存文件"
 set smartindent
-set cindent		"设置C样式的缩进格式"
+set cindent     "设置C样式的缩进格式"
 filetype indent on
-set tabstop=4	"设置table长度"
-set shiftwidth=4		"同上"
-set showmatch	"显示匹配的括号
-set scrolloff=5		"距离顶部和底部5行"
+set tabstop=4   "设置table长度"
+set shiftwidth=4        "同上"
+set showmatch   "显示匹配的括号
+set scrolloff=5     "距离顶部和底部5行"
 set expandtab
 set laststatus=2 "命令行为两行"
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 "set fencs=utf-8,gb2312,ugb18030,ucs-bom,cp936
 set backspace=2
-set mouse=a		"启用鼠标""
+set mouse=a     "启用鼠标""
 set selection=exclusive
 set selectmode=mouse,key
 set matchtime=5
-set ignorecase		"忽略大小写"
+set ignorecase      "忽略大小写"
 set incsearch
-set hlsearch		"高亮搜索项"
+set hlsearch        "高亮搜索项"
 set clipboard+=unnamed      "共享粘贴板
 set whichwrap+=<,>,h,l
 set autoread
-set cursorline		"突出显示当前行"
-"set cursorcolumn		"突出显示当前列
+set cursorline      "突出显示当前行"
+"set cursorcolumn       "突出显示当前列
 let mapleader=","
 "set autochdir "根据当前正在编辑的文件设置工作目录
 
 set nocompatible              " 去除VI一致性,必须
 "filetype off                  " 必须
- "设置包括vundle和初始化相关的runtime path
+"设置包括vundle和初始化相关的runtime path
 "set rtp+=~/.vim/bundle/Vundle.vim
 "call vundle#begin()
 call plug#begin('~/.vim/bundle')
@@ -62,9 +62,8 @@ Plug 'vim-airline/vim-airline-themes'                                          "
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}       "代码补全
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }                       "文件树
 Plug 'Yggdroot/indentLine'                                                     "缩进指示线
-"Plug 'jiangmiao/auto-pairs'                                                    "括号、引号自动补全
 Plug 'Raimondi/delimitMate'                                                    "括号、引号自动补全
-Plug 'tell-k/vim-autopep8',{'for': 'python'}                                   "python代码格式化
+"Plug 'tell-k/vim-autopep8',{'for': 'python'}                                   "python代码格式化
 Plug 'scrooloose/nerdcommenter'                                                "快速注释
 Plug 'majutsushi/tagbar'
 if has('gui_running')
@@ -83,10 +82,13 @@ Plug 'morhetz/gruvbox'
 Plug 'notpratheek/vim-sol'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'rdnetto/YCM-Generator',{'branch': 'stable'}
-"Plug 'jeaye/color_coded', {'do': 'mkdir build && cd build && cmake .. && make && make install'}
+Plug 'jeaye/color_coded', {'do': 'mkdir build && cd build && cmake .. && make && make install'}
 Plug 'liwangmj/green_vim_switchtoinc'
 Plug 'mhinz/vim-startify'
 Plug 'maralla/completor.vim',{'for': 'python'}
+Plug 'airblade/vim-gitgutter'
+Plug 'elzr/vim-json'
+Plug 'Chiel92/vim-autoformat'
 "Plug 'jceb/vim-hier'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'zchee/deoplete-jedi'
@@ -98,7 +100,7 @@ filetype on
 
 set background=dark    "设置背景色"
 "colorscheme evening
-"colorschem monokai		"设置主题样式
+"colorschem monokai     "设置主题样式
 "colorschem molokai
 "let g:rehash256 = 1
 "let g:molokai_original = 1
@@ -148,7 +150,7 @@ let g:ycm_filepath_completion_use_working_dir=1
 let g:ycm_use_ultisnips_completer=1
 
 "let g:cur_dir = getcwd()
-let g:cur_file = expand("%:p:h") 
+let g:cur_file = expand("%:p:h")
 
 let g:ycm_extra_conf_vim_data=[]
 "call add(g:ycm_extra_conf_vim_data, 'g:cur_dir')
@@ -157,18 +159,18 @@ call add(g:ycm_extra_conf_vim_data, 'g:cur_file')
 " 修改对C函数的补全快捷键，默认是CTRL + space，修改为ALT + ;
 let g:ycm_key_invoke_completion = '<F6>'
 "let g:ycm_semantic_triggers =  {
-  "\   'c' : ['->', '.', 're!\W+[0-9a-zA-Z\_]{1,2}$'],
-  "\   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s', 're!\[.*\]\s'],
-  "\   'ocaml' : ['.', '#'],
-  "\   'cpp,objcpp' : ['->', '.', '::', 're!\W+[0-9a-zA-Z\_]{1,3}?$'],
-  "\   'perl' : ['->'],
-  "\   'php' : ['->', '::'],
-  "\   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  "\   'ruby' : ['.', '::'],
-  "\   'lua' : ['.', ':'],
-  "\   'erlang' : [':'],
-  "\ }
-  "
+"\   'c' : ['->', '.', 're!\W+[0-9a-zA-Z\_]{1,2}$'],
+"\   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s', 're!\[.*\]\s'],
+"\   'ocaml' : ['.', '#'],
+"\   'cpp,objcpp' : ['->', '.', '::', 're!\W+[0-9a-zA-Z\_]{1,3}?$'],
+"\   'perl' : ['->'],
+"\   'php' : ['->', '::'],
+"\   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"\   'ruby' : ['.', '::'],
+"\   'lua' : ['.', ':'],
+"\   'erlang' : [':'],
+"\ }
+"
 let g:ycm_filetype_blacklist = {'python': 1, 'tagbar': 1, 'qf': 1, 'notes': 1, 'markdown': 1, 'unite': 1, 'vimwiki': 1, 'pandoc': 1, 'infolog': 1, 'mail': 1}
 
 " 跳转到定义
@@ -178,7 +180,7 @@ nmap t :YcmCompleter GetType<CR>
 "//////////////////////////////////////////////////
 
 "快捷键映射
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif	"离开插入模式后自动关闭预览窗口
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif    "离开插入模式后自动关闭预览窗口
 "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"     "回车即选中当前项
 "上下左右键行为
 "inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -195,9 +197,9 @@ nmap <space> :
 vmap <space> :
 
 let NERDTreeChDirMode=2
-""let NERDTreeQuitOnOpen=1	"打开文件时关闭树"
+""let NERDTreeQuitOnOpen=1  "打开文件时关闭树"
 let NERDTreeShowBookmarks=0
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']	"设置忽略文件类型"
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']  "设置忽略文件类型"
 let NERDTreeWinSize=30
 let NERDTreeAutoDeleteBuffer=1
 ""au VimEnter * NERDTree              "打开vim时默认开启树"
@@ -243,21 +245,21 @@ let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status
 
 " 高亮括号插件
 "let g:rbpt_colorpairs = [ ['brown', 'RoyalBlue3'],
-            "\ ['Darkblue', 'SeaGreen3'],
-            "\ ['darkgray', 'DarkOrchid3'],
-            "\['darkgreen', 'firebrick3'],
-            "\['darkcyan', 'RoyalBlue3'],
-            "\['darkred', 'SeaGreen3'],
-            "\['darkmagenta', 'DarkOrchid3'],
-            "\['brown', 'firebrick3'],
-            "\['gray', 'RoyalBlue3'],
-            "\['black', 'SeaGreen3'],
-            "\['darkmagenta', 'DarkOrchid3'],
-            "\['Darkblue', 'firebrick3'],
-            "\['darkgreen', 'RoyalBlue3'],
-            "\['darkcyan', 'SeaGreen3'],
-            "\['darkred', 'DarkOrchid3'],
-            "\['red', 'firebrick3']]
+"\ ['Darkblue', 'SeaGreen3'],
+"\ ['darkgray', 'DarkOrchid3'],
+"\['darkgreen', 'firebrick3'],
+"\['darkcyan', 'RoyalBlue3'],
+"\['darkred', 'SeaGreen3'],
+"\['darkmagenta', 'DarkOrchid3'],
+"\['brown', 'firebrick3'],
+"\['gray', 'RoyalBlue3'],
+"\['black', 'SeaGreen3'],
+"\['darkmagenta', 'DarkOrchid3'],
+"\['Darkblue', 'firebrick3'],
+"\['darkgreen', 'RoyalBlue3'],
+"\['darkcyan', 'SeaGreen3'],
+"\['darkred', 'DarkOrchid3'],
+"\['red', 'firebrick3']]
 let g:rbpt_max = 16
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -284,7 +286,7 @@ let g:clang_format#style_options = {"AccessModifierOffset" : -4,
             \"Standard" : "C++11"}
 
 augroup vimrc
-        autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
 augroup END
 function RunCode()
     let l:current_file_name_no_extension=expand("%:r")
@@ -403,10 +405,10 @@ autocmd VimEnter * inoremap <S-TAB> <S-TAB>
 autocmd VimEnter * imap <expr> <CR> pumvisible() ? (exists('v:completed_item') && !empty(v:completed_item) && v:completed_item.word != '' && v:completed_item.kind == 'f') ? "\<C-R>=\<SID>onCompleteDone()\<CR>" : "\<C-y>" : "\<Plug>delimitMateCR"
 
 
-"autocmd BufDelete *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags() 
-"autocmd BufNew *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags() 
-"autocmd BufRead *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags() 
-autocmd BufEnter,BufHidden *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags() 
+"autocmd BufDelete *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
+"autocmd BufNew *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
+"autocmd BufRead *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
+autocmd BufEnter,BufHidden *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
 
 function ResetFlags()
     YcmCompleter ClearCompilationFlagCache

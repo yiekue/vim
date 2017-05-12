@@ -74,7 +74,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp']}
 Plug 'kien/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
+"Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
@@ -89,6 +89,8 @@ Plug 'maralla/completor.vim',{'for': 'python'}
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'Chiel92/vim-autoformat'
+Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
+Plug 'arcticicestudio/nord-vim'
 "Plug 'jceb/vim-hier'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'zchee/deoplete-jedi'
@@ -116,8 +118,14 @@ let g:gruvbox_contrast_dark='soft'
 "let g:gruvbox_contrast_light='soft'
 "colorscheme space-vim-dark
 colorscheme gruvbox
-"let g:gruvbox_italic=1
-"let g:asyncrun_mode=0
+"colorscheme hybrid
+"colorscheme github
+let g:gruvbox_italic=1
+
+
+"colorscheme nord
+"let g:nord_italic_comments = 1
+
 
 
 "/////////////YCM配置////////////////////////

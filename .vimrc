@@ -32,7 +32,7 @@ set expandtab
 set laststatus=2 "命令行为两行"
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
-"set fencs=utf-8,gb2312,ugb18030,ucs-bom,cp936
+set fencs=utf-8,gb2312,ugb18030,ucs-bom,cp936
 set backspace=2
 set mouse=a     "启用鼠标""
 set selection=exclusive
@@ -55,7 +55,6 @@ set nocompatible              " 去除VI一致性,必须
 "set rtp+=~/.vim/bundle/Vundle.vim
 "call vundle#begin()
 call plug#begin('~/.vim/bundle')
-"Plug 'jalcine/cmake.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'                                                 "状态栏
 Plug 'vim-airline/vim-airline-themes'                                          "状态栏主题
@@ -63,7 +62,6 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}       "
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }                       "文件树
 Plug 'Yggdroot/indentLine'                                                     "缩进指示线
 Plug 'Raimondi/delimitMate'                                                    "括号、引号自动补全
-"Plug 'tell-k/vim-autopep8',{'for': 'python'}                                   "python代码格式化
 Plug 'scrooloose/nerdcommenter'                                                "快速注释
 Plug 'majutsushi/tagbar'
 if has('gui_running')
@@ -74,7 +72,6 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp']}
 Plug 'kien/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
-"Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
@@ -85,15 +82,14 @@ Plug 'rdnetto/YCM-Generator',{'branch': 'stable'}
 Plug 'jeaye/color_coded', {'do': 'mkdir build && cd build && cmake .. && make && make install'}
 Plug 'liwangmj/green_vim_switchtoinc'
 Plug 'mhinz/vim-startify'
-Plug 'maralla/completor.vim',{'for': 'python'}
-Plug 'airblade/vim-gitgutter'
+"Plug 'maralla/completor.vim',{'for': 'python'}
+"Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'Chiel92/vim-autoformat'
 Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
 Plug 'arcticicestudio/nord-vim'
+"Plug 'ryanoasis/vim-devicons'
 "Plug 'jceb/vim-hier'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'zchee/deoplete-jedi'
 call plug#end()
 "call vundle#end()            " 必须:
 filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
@@ -163,7 +159,6 @@ let g:airline#extensions#whitespace#enabled=1
 "let g:airline_theme="dark"
 "let g:airline_theme="badwolf"
 let g:airline_theme="gruvbox"
-"let g:airline_theme="violet"
 "let g:airline_theme='papercolor'
 "let g:airline_theme="solarized"
 "let g:airline_theme="sol"
@@ -172,7 +167,7 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 "set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 "set guifont=Consolas\ for\ Powerline\ 12
-set guifont=Monaco\ for\ Powerline
+set guifont=Monaco\ for\ Powerline:h12.5
 "set guifontwide=苹方-简
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
@@ -235,7 +230,7 @@ set completeopt=longest,menu
 "补全菜单高度
 set pumheight=15
 let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_path_to_python_interpreter='/usr/bin/python'
+"let g:ycm_path_to_python_interpreter='/usr/local/bin/python'
 let g:ycm_collect_identifiers_from_tage_files=1
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_complete_in_comments=1
@@ -257,11 +252,11 @@ let g:ycm_filepath_completion_use_working_dir=1
 let g:ycm_use_ultisnips_completer=1
 
 "let g:cur_dir = getcwd()
-let g:cur_file = expand("%:p:h")
+"let g:cur_file = expand("%:p:h")
 
-let g:ycm_extra_conf_vim_data=[]
+"let g:ycm_extra_conf_vim_data=[]
 "call add(g:ycm_extra_conf_vim_data, 'g:cur_dir')
-call add(g:ycm_extra_conf_vim_data, 'g:cur_file')
+"call add(g:ycm_extra_conf_vim_data, 'g:cur_file')
 
 " 修改对C函数的补全快捷键，默认是CTRL + space，修改为ALT + ;
 let g:ycm_key_invoke_completion = '<F6>'
@@ -278,7 +273,7 @@ let g:ycm_key_invoke_completion = '<F6>'
 "\   'erlang' : [':'],
 "\ }
 "
-let g:ycm_filetype_blacklist = {'python': 1, 'tagbar': 1, 'qf': 1, 'notes': 1, 'markdown': 1, 'unite': 1, 'vimwiki': 1, 'pandoc': 1, 'infolog': 1, 'mail': 1}
+"let g:ycm_filetype_blacklist = {'python': 1, 'tagbar': 1, 'qf': 1, 'notes': 1, 'markdown': 1, 'unite': 1, 'vimwiki': 1, 'pandoc': 1, 'infolog': 1, 'mail': 1}
 
 function! s:onCompleteDone()
     let abbr=v:completed_item.abbr
@@ -364,24 +359,21 @@ autocmd VimEnter * imap <silent> <expr> <TAB> delimitMate#ShouldJump() ? delimit
 autocmd VimEnter * inoremap <S-TAB> <S-TAB>
 autocmd VimEnter * imap <expr> <CR> pumvisible() ? (exists('v:completed_item') && !empty(v:completed_item) && v:completed_item.word != '' && v:completed_item.kind == 'f') ? "\<C-R>=\<SID>onCompleteDone()\<CR>" : "\<C-y>" : "\<Plug>delimitMateCR"
 
-"autocmd BufDelete *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
-"autocmd BufNew *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
-"autocmd BufRead *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
-autocmd BufEnter,BufHidden *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
+"autocmd BufEnter,BufHidden *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
 
-function ResetFlags()
-    YcmCompleter ClearCompilationFlagCache
-    "echo "call ResetFlags"
-    let dir_now = expand("%:p:h")
-    if dir_now == g:cur_file
-        return
-    endif
-    let g:cur_file = expand("%:p:h")
-    YcmCompleter ClearCompilationFlagCache
-endfunction
+"function ResetFlags()
+"YcmCompleter ClearCompilationFlagCache
+"echo "call ResetFlags"
+"let dir_now = expand("%:p:h")
+"if dir_now == g:cur_file
+"return
+"endif
+"let g:cur_file = expand("%:p:h")
+"YcmCompleter ClearCompilationFlagCache
+"endfunction
 
 
-let g:completor_python_binary = '/usr/bin/python'
+"let g:completor_python_binary = '/usr/local/bin/python'
 
 
 
@@ -403,7 +395,7 @@ map <C-l> :bnext<CR>
 map <F2> :NERDTreeToggle<CR>
 map <F3> :TagbarToggle<CR>
 map <F4> <leader>ci
-map <F4> :Autoformat<CR>
+map <F8> :Autoformat<CR>
 map <F9> :call RunCode()<CR>
 
 nmap <space> :
@@ -416,5 +408,4 @@ nmap f <Plug>CtrlSFPrompt
 nmap F <Plug>CtrlSFQuickfixPrompt
 
 " 跳转到定义
-nmap gf :YcmCompleter GoTo<CR>
-nmap t :YcmCompleter GetType<CR>
+map gf :YcmCompleter GoTo<CR>

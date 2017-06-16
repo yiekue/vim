@@ -58,8 +58,8 @@ flags = [
     '-I/usr/local/include',
     '-I/usr/local/include/opencv',
     '-I/usr/local/include/eigen3',
-    '-I/usr/lib/gcc/x86_64-linux-gnu/4.9.4/include',
-    '-I/usr/lib/gcc/i686-linux-gnu/6.2.0'
+    # '-I/usr/lib/gcc/x86_64-linux-gnu/4.9.4/include',
+    # '-I/usr/lib/gcc/i686-linux-gnu/6.2.0'
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
@@ -164,50 +164,53 @@ def FlagsForFile(filename, **kwargs):
         relative_to = DirectoryOfThisScript()
         final_flags = MakeRelativePathsInFlagsAbsolute(flags, relative_to)
 
-    cmake_flags = kwargs['client_data']
+    # if kwargs.has_key('client_data'):
+        # cmake_flags = kwargs['client_data']
 
-    file_dir = cmake_flags['g:cur_file']
-    temp_path = file_dir
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and temp_flag not in final_flags:
-        final_flags.append(temp_flag)
+        # if cmake_flags:
+            # file_dir = cmake_flags['g:cur_file']
+            # temp_path = file_dir
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and temp_flag not in final_flags:
+                # final_flags.append(temp_flag)
 
-    temp_path = os.path.join(file_dir, "include")
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and (temp_flag not in final_flags):
-        final_flags.append(temp_flag)
+            # temp_path = os.path.join(file_dir, "include")
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and (temp_flag not in final_flags):
+                # final_flags.append(temp_flag)
 
-    temp_path = os.path.join(file_dir, "inc")
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and (temp_flag not in final_flags):
-        final_flags.append(temp_flag)
+            # temp_path = os.path.join(file_dir, "inc")
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and (temp_flag not in final_flags):
+                # final_flags.append(temp_flag)
 
-    temp_path = os.path.abspath(os.path.join(file_dir, ".."))
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and (temp_flag not in final_flags):
-        final_flags.append(temp_flag)
+            # temp_path = os.path.abspath(os.path.join(file_dir, ".."))
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and (temp_flag not in final_flags):
+                # final_flags.append(temp_flag)
 
-    temp_path = os.path.join(
-        os.path.abspath(os.path.join(file_dir, "..")), "include")
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and (temp_flag not in final_flags):
-        final_flags.append(temp_flag)
+            # temp_path = os.path.join(
+                # os.path.abspath(os.path.join(file_dir, "..")), "include")
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and (temp_flag not in final_flags):
+                # final_flags.append(temp_flag)
 
-    temp_path = os.path.join(
-        os.path.abspath(os.path.join(file_dir, "..")), "inc")
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and (temp_flag not in final_flags):
-        final_flags.append(temp_flag)
+            # temp_path = os.path.join(
+                # os.path.abspath(os.path.join(file_dir, "..")), "inc")
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and (temp_flag not in final_flags):
+                # final_flags.append(temp_flag)
 
-    temp_path = os.path.join(
-        os.path.abspath(os.path.join(file_dir, "../..")), "include")
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and (temp_flag not in final_flags):
-        final_flags.append(temp_flag)
+            # temp_path = os.path.join(
+                # os.path.abspath(os.path.join(file_dir, "../..")), "include")
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and (temp_flag not in final_flags):
+                # final_flags.append(temp_flag)
 
-    temp_path = os.path.join(
-        os.path.abspath(os.path.join(file_dir, "../..")), "inc")
-    temp_flag = "-I" + temp_path
-    if os.path.exists(temp_path) and (temp_flag not in final_flags):
-        final_flags.append(temp_flag)
+            # temp_path = os.path.join(
+                # os.path.abspath(os.path.join(file_dir, "../..")), "inc")
+            # temp_flag = "-I" + temp_path
+            # if os.path.exists(temp_path) and (temp_flag not in final_flags):
+                # final_flags.append(temp_flag)
+
     return {'flags': final_flags, 'do_cache': True}

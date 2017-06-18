@@ -1,5 +1,5 @@
 
-" CVE-2007-2438
+
 " Normally we use vim-extensions. If you want true vi-compatibility
 " remove change the following statements set nocompatible
 " Use Vim defaults instead of 100% vi compatibility
@@ -49,8 +49,6 @@ set cursorline      "突出显示当前行"
 let mapleader=","
 "set autochdir "根据当前正在编辑的文件设置工作目录
 "
-"set noshowmode
-"set cmdheight=2
 
 set nocompatible              " 去除VI一致性,必须
 "filetype off                  " 必须
@@ -61,7 +59,6 @@ call plug#begin('~/.vim/bundle')
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'                                                 "状态栏
 Plug 'vim-airline/vim-airline-themes'                                          "状态栏主题
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}       "代码补全
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }                       "文件树
 Plug 'Yggdroot/indentLine'                                                     "缩进指示线
 Plug 'Raimondi/delimitMate'                                                    "括号、引号自动补全
@@ -78,22 +75,34 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
-Plug 'morhetz/gruvbox'
-Plug 'notpratheek/vim-sol'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'rdnetto/YCM-Generator',{'branch': 'stable'}
-Plug 'jeaye/color_coded', {'do': 'mkdir build && cd build && cmake .. && make && make install'}
 Plug 'liwangmj/green_vim_switchtoinc'
 Plug 'mhinz/vim-startify'
-"Plug 'maralla/completor.vim',{'for': 'python'}
-"Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'Chiel92/vim-autoformat'
+Plug 'mbbill/undotree'
+
+Plug 'morhetz/gruvbox'
+Plug 'notpratheek/vim-sol'
 Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
 Plug 'arcticicestudio/nord-vim'
-Plug 'Shougo/echodoc.vim'
 Plug 'rakr/vim-one'
-Plug 'mbbill/undotree'
+
+if has('nvim')
+    Plug 'arakashic/chromatica.nvim', {'for': ['cpp']}
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-jedi', {'for': ['python']}
+    Plug 'zchee/deoplete-clang', {'for': ['cpp']}
+    Plug 'Shougo/neco-vim' , {'for': ['vim']}
+    Plug 'Shougo/neco-syntax'
+    Plug 'Shougo/echodoc.vim'
+    Plug 'Shougo/neoinclude.vim'
+else
+    Plug 'rdnetto/YCM-Generator',{'branch': 'stable'}
+    Plug 'jeaye/color_coded', {'for': ['cpp'], 'do': 'mkdir build && cd build && cmake .. && make && make install'}
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}       "代码补全
+endif
+
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'jceb/vim-hier'
 call plug#end()
@@ -187,7 +196,7 @@ let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status
 let g:airline_skip_empty_sections = 1
 let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
@@ -433,3 +442,17 @@ nmap F <Plug>CtrlSFQuickfixPrompt
 
 " 跳转到定义
 map gf :YcmCompleter GoTo<CR>
+
+
+
+let g:echodoc#enable_at_startup=1
+if has('nvim')
+    let g:chromatica#enable_at_startup=1
+    let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#sources#clang#libclang_path='/usr/local/opt/llvm/lib/libclang.dylib'
+    let g:deoplete#sources#clang#clang_header='/usr/local/opt/llvm/include'
+    "let g:deoplete#sources#clang#flags=['-I/usr/local/include', '-I/usr/local/include/eigen3']
+    set noshowmode
+    "set cmdheight=2
+endif

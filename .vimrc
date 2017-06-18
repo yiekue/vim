@@ -1,4 +1,4 @@
-" Configuration file for vim set modelines=0
+
 " CVE-2007-2438
 " Normally we use vim-extensions. If you want true vi-compatibility
 " remove change the following statements set nocompatible
@@ -48,6 +48,9 @@ set cursorline      "突出显示当前行"
 "set cursorcolumn       "突出显示当前列
 let mapleader=","
 "set autochdir "根据当前正在编辑的文件设置工作目录
+"
+"set noshowmode
+"set cmdheight=2
 
 set nocompatible              " 去除VI一致性,必须
 "filetype off                  " 必须
@@ -88,6 +91,9 @@ Plug 'elzr/vim-json'
 Plug 'Chiel92/vim-autoformat'
 Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
 Plug 'arcticicestudio/nord-vim'
+Plug 'Shougo/echodoc.vim'
+Plug 'rakr/vim-one'
+Plug 'mbbill/undotree'
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'jceb/vim-hier'
 call plug#end()
@@ -106,18 +112,22 @@ set background=dark    "设置背景色"
 "colorschem torte
 "colorschem dracula
 "set termguicolors
-"set t_Co=256
+set t_Co=256
 "colorscheme PaperColor
 "colorscheme sol
 "colorscheme NeoSolarized
-let g:gruvbox_contrast_dark='soft'
-"let g:gruvbox_contrast_light='soft'
-"colorscheme space-vim-dark
-colorscheme gruvbox
 "colorscheme hybrid
 "colorscheme github
-let g:gruvbox_italic=1
+"colorscheme space-vim-dark
 
+"colorscheme gruvbox
+"let g:gruvbox_contrast_dark='soft'
+"let g:gruvbox_contrast_light='soft'
+"let g:gruvbox_italic=1
+
+"let g:one_allow_italics = 1
+set termguicolors
+colorscheme one
 
 "colorscheme nord
 "let g:nord_italic_comments = 1
@@ -154,11 +164,14 @@ let python_highlight_all = 1
 
 " airline设置
 let g:airline_powerline_fonts = 1
+"let g:airline_left_sep = "\uE0B4"
+"let g:airline_right_sep = "\uE0B6"
 let g:airline#extensions#whitespace#enabled=1
 "let g:airline_theme="light"
 "let g:airline_theme="dark"
 "let g:airline_theme="badwolf"
-let g:airline_theme="gruvbox"
+"let g:airline_theme="gruvbox"
+let g:airline_theme="onedark"
 "let g:airline_theme='papercolor'
 "let g:airline_theme="solarized"
 "let g:airline_theme="sol"
@@ -167,9 +180,19 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 "set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 "set guifont=Consolas\ for\ Powerline\ 12
+"set guifont=MonacoForPowerline\ Nerd\ Font:h12.5
 set guifont=Monaco\ for\ Powerline:h12.5
 "set guifontwide=苹方-简
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+let g:airline_skip_empty_sections = 1
+let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+
+
 
 " 高亮括号插件
 "let g:rbpt_colorpairs = [ ['brown', 'RoyalBlue3'],
@@ -395,6 +418,7 @@ map <C-l> :bnext<CR>
 map <F2> :NERDTreeToggle<CR>
 map <F3> :TagbarToggle<CR>
 map <F4> <leader>ci
+map <F5> :UndotreeToggle<CR>
 map <F8> :Autoformat<CR>
 map <F9> :call RunCode()<CR>
 

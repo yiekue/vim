@@ -72,44 +72,41 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp']}
 Plug 'kien/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun']}
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'liwangmj/green_vim_switchtoinc'
 Plug 'mhinz/vim-startify'
-Plug 'elzr/vim-json'
-Plug 'Chiel92/vim-autoformat'
-Plug 'mbbill/undotree'
+Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
+Plug 'groenewege/vim-less', {'for': 'less'}
 
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
 Plug 'notpratheek/vim-sol'
-Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
-Plug 'arcticicestudio/nord-vim'
 Plug 'rakr/vim-one'
-
 if has('nvim')
     Plug 'arakashic/chromatica.nvim', {'for': ['cpp']}
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': ['vim', 'python', 'cpp'] }
     Plug 'zchee/deoplete-jedi', {'for': ['python']}
     Plug 'zchee/deoplete-clang', {'for': ['cpp']}
     Plug 'Shougo/neco-vim' , {'for': ['vim']}
-    Plug 'Shougo/neco-syntax'
+    "Plug 'Shougo/neco-syntax'
     Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/neoinclude.vim'
+    Plug 'Shougo/neoinclude.vim', {'for': 'cpp'}
+    "Plug 'Shougo/vimshell.vim'
+    Plug 'w0rp/ale'
 else
     Plug 'rdnetto/YCM-Generator',{'branch': 'stable'}
-    Plug 'jeaye/color_coded', {'for': ['cpp'], 'do': 'mkdir build && cd build && cmake .. && make && make install'}
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}       "代码补全
 endif
-
-"Plug 'ryanoasis/vim-devicons'
-"Plug 'jceb/vim-hier'
 call plug#end()
-"call vundle#end()            " 必须:
 filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
-
 filetype on
+
 
 set background=dark    "设置背景色"
 "colorscheme evening
@@ -169,18 +166,19 @@ let g:tagbar_ctags_bin='ctags'
 let g:autopep8_disable_show_diff=1
 
 "python高亮
-let python_highlight_all = 1
+let g:python_highlight_all = 1
 
 " airline设置
 let g:airline_powerline_fonts = 1
-"let g:airline_left_sep = "\uE0B4"
-"let g:airline_right_sep = "\uE0B6"
+"let g:airline_left_sep = '\uE0B4'
+"let g:airline_right_sep = '\uE0B6'
 let g:airline#extensions#whitespace#enabled=1
 "let g:airline_theme="light"
 "let g:airline_theme="dark"
 "let g:airline_theme="badwolf"
 "let g:airline_theme="gruvbox"
-let g:airline_theme="onedark"
+"let g:airline_theme="onedark"
+let g:airline_theme='one'
 "let g:airline_theme='papercolor'
 "let g:airline_theme="solarized"
 "let g:airline_theme="sol"
@@ -192,13 +190,15 @@ let g:airline#extensions#tabline#enabled = 1
 "set guifont=MonacoForPowerline\ Nerd\ Font:h12.5
 set guifont=Monaco\ for\ Powerline:h12.5
 "set guifontwide=苹方-简
-let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+if has('g:asyncrun_status')
+    let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+endif
 let g:airline_skip_empty_sections = 1
 let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-let g:airline_symbols.space = "\ua0"
+let g:airline_symbols.space="\ua0"
 
 
 
@@ -443,16 +443,45 @@ nmap F <Plug>CtrlSFQuickfixPrompt
 " 跳转到定义
 map gf :YcmCompleter GoTo<CR>
 
-
-
 let g:echodoc#enable_at_startup=1
 if has('nvim')
-    let g:chromatica#enable_at_startup=1
-    let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#sources#clang#libclang_path='/usr/local/opt/llvm/lib/libclang.dylib'
-    let g:deoplete#sources#clang#clang_header='/usr/local/opt/llvm/include'
-    "let g:deoplete#sources#clang#flags=['-I/usr/local/include', '-I/usr/local/include/eigen3']
     set noshowmode
     "set cmdheight=2
+
+    let g:chromatica#enable_at_startup=1
+    let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
+
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_refresh_always=1
+    let g:deoplete#enable_smart_case=1
+    let g:deoplete#auto_complete_delay=10
+
+    let g:deoplete#sources#clang#libclang_path='/usr/local/opt/llvm/lib/libclang.dylib'
+    let g:deoplete#sources#clang#clang_header='/usr/local/opt/llvm/include'
+    let g:deoplete#sources#clang#flags=['-I/usr/local/include', '-I/usr/local/include/eigen3']
+
+    function! LinterStatus() abort
+        let l:counts = ale#statusline#Count(bufnr(''))
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+        return l:counts.total == 0 ? 'OK' : printf('%dW %dE', l:all_non_errors, l:all_errors)
+    endfunction
+    set statusline=%{LinterStatus()}
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+    let g:ale_set_loclist = 0
+    let g:ale_set_quickfix = 1
+    let g:ale_sign_error = '>'
+    let g:ale_sign_warning = '!'
+    let g:ale_linters = {
+                \   'python': ['pylint'],
+                \   'cpp': ['clang'],
+                \   'cmake': ['cmakelint'],
+                \   'vim': ['vint'],
+                \}
+else
+    let g:airline#extensions#ycm#enabled = 1
+    let g:airline#extensions#ycm#error_symbol = 'E:'
+    let g:airline#extensions#ycm#warning_symbol = 'W:'
 endif

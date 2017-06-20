@@ -1,10 +1,3 @@
-
-
-" Normally we use vim-extensions. If you want true vi-compatibility
-" remove change the following statements set nocompatible
-" Use Vim defaults instead of 100% vi compatibility
-set backspace=2     " more powerful backspacing
-
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
 " Don't write backup file if vim is being called by "chpass"
@@ -17,7 +10,7 @@ set guioptions-=L " 隐藏左侧滚动条
 set guioptions-=b " 隐藏底部滚动条
 set guioptions-=T
 set showtabline=0 " 隐藏Tab栏
-syntax on   "开启语法高亮"
+syntax on   "开启语法高亮
 set linespace=1
 set nowrap  "设置不折行"
 set fileformat=unix "设置以unix的格式保存文件"
@@ -32,7 +25,6 @@ set expandtab
 set laststatus=2 "命令行为两行"
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
-set fencs=utf-8,gb2312,ugb18030,ucs-bom,cp936
 set backspace=2
 set mouse=a     "启用鼠标""
 set selection=exclusive
@@ -43,10 +35,10 @@ set incsearch
 set hlsearch        "高亮搜索项"
 set clipboard+=unnamed      "共享粘贴板
 set whichwrap+=<,>,h,l
-set autoread
+set autoread        "如果文件在其他地方被更改，自动读入
 set cursorline      "突出显示当前行"
 "set cursorcolumn       "突出显示当前列
-let mapleader=","
+let g:mapleader=','
 "set autochdir "根据当前正在编辑的文件设置工作目录
 "
 
@@ -56,45 +48,46 @@ set nocompatible              " 去除VI一致性,必须
 "set rtp+=~/.vim/bundle/Vundle.vim
 "call vundle#begin()
 call plug#begin('~/.vim/bundle')
-Plug 'junegunn/vim-easy-align'
-Plug 'vim-airline/vim-airline'                                                 "状态栏
-Plug 'vim-airline/vim-airline-themes'                                          "状态栏主题
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }                       "文件树
-Plug 'Yggdroot/indentLine'                                                     "缩进指示线
-Plug 'Raimondi/delimitMate'                                                    "括号、引号自动补全
-Plug 'scrooloose/nerdcommenter'                                                "快速注释
+Plug 'junegunn/vim-easy-align'      "自动对齐
+Plug 'vim-airline/vim-airline'      "状态栏
+Plug 'vim-airline/vim-airline-themes'   "状态栏主题
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }   "文件树
+Plug 'Yggdroot/indentLine'          "缩进指示线
+Plug 'Raimondi/delimitMate'         "括号、引号自动补全
+Plug 'scrooloose/nerdcommenter'     "快速注释
 Plug 'majutsushi/tagbar'
 if has('gui_running')
-    Plug 'yonchu/accelerated-smooth-scroll'
+    Plug 'yonchu/accelerated-smooth-scroll'     "gui下平滑滚动
 endif
-Plug 'hdima/python-syntax', {'for': 'python'}
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp']}
-Plug 'kien/ctrlp.vim'
-Plug 'dyng/ctrlsf.vim'
-Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun']}
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'vimcn/vimcdoc'
-Plug 'liwangmj/green_vim_switchtoinc'
-Plug 'mhinz/vim-startify'
+Plug 'hdima/python-syntax', {'for': 'python'}       "Python语法高亮改进
+Plug 'kien/rainbow_parentheses.vim'     "彩虹括号
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp']}      "c++语法高亮改进
+Plug 'kien/ctrlp.vim'       "目录内搜索文件
+Plug 'dyng/ctrlsf.vim'      "目录内搜索字符串
+Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun']}       "异步执行shell命令
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'     "代码片段
+Plug 'vimcn/vimcdoc'        "中文的vim文档
+Plug 'liwangmj/green_vim_switchtoinc'       "c++头文件和源文件切换
+Plug 'mhinz/vim-startify'       "启动页面
 Plug 'elzr/vim-json', {'for': 'json'}
-Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}     "代码格式化
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
 Plug 'groenewege/vim-less', {'for': 'less'}
 
+Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
 Plug 'notpratheek/vim-sol'
 Plug 'rakr/vim-one'
+
 if has('nvim')
     Plug 'arakashic/chromatica.nvim', {'for': ['cpp']}
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': ['vim', 'python', 'cpp'] }
     Plug 'zchee/deoplete-jedi', {'for': ['python']}
-    Plug 'zchee/deoplete-clang', {'for': ['cpp']}
+    Plug 'zchee/deoplete-clang'
     Plug 'Shougo/neco-vim' , {'for': ['vim']}
-    "Plug 'Shougo/neco-syntax'
+    Plug 'Shougo/neco-syntax'
     Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/neoinclude.vim', {'for': 'cpp'}
     "Plug 'Shougo/vimshell.vim'
@@ -117,39 +110,56 @@ set background=dark    "设置背景色"
 "colorschem desert
 "colorschem torte
 "colorschem dracula
-"set termguicolors
-set t_Co=256
-"colorscheme PaperColor
-"colorscheme sol
-"colorscheme NeoSolarized
-"colorscheme hybrid
 "colorscheme github
+
+
+"set termguicolors
+"colorscheme hybrid
+
+"colorscheme NeoSolarized
+"let g:airline_theme="solarized"
+
+"colorscheme PaperColor
+"let g:airline_theme='papercolor'
+
+"colorscheme sol
+"let g:airline_theme="sol"
+
+"set termguicolors
 "colorscheme space-vim-dark
 
 "colorscheme gruvbox
 "let g:gruvbox_contrast_dark='soft'
 "let g:gruvbox_contrast_light='soft'
 "let g:gruvbox_italic=1
+"let g:airline_theme="gruvbox"
 
-"let g:one_allow_italics = 1
 set termguicolors
 colorscheme one
+let g:one_allow_italics = 1
+let g:airline_theme='one'
+"let g:airline_theme="onedark"
 
+"set termguicolors
 "colorscheme nord
 "let g:nord_italic_comments = 1
+"let g:airline_theme='nord'
 
 
+"let g:airline_theme="light"
+"let g:airline_theme="dark"
+"let g:airline_theme="badwolf"
 
 "/////////////YCM配置////////////////////////
-let NERDTreeChDirMode=2
-""let NERDTreeQuitOnOpen=1  "打开文件时关闭树"
-let NERDTreeShowBookmarks=0
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']  "设置忽略文件类型"
-let NERDTreeWinSize=30
-let NERDTreeAutoDeleteBuffer=1
-""au VimEnter * NERDTree              "打开vim时默认开启树"
-let NERDTreeAutoCenter=1
-let NERDTreeMinimalUI=1
+let g:NERDTreeChDirMode=2
+""let NERDTreeQuitOnOpen=1  "打开文件时关闭树
+let g:NERDTreeShowBookmarks=0
+let g:NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']  "设置忽略文件类型
+let g:NERDTreeWinSize=30
+let g:NERDTreeAutoDeleteBuffer=1
+""au VimEnter * NERDTree              "打开vim时默认开启树
+let g:NERDTreeAutoCenter=1
+let g:NERDTreeMinimalUI=1
 
 "缩进指示线"
 let g:indentLine_char='┆'
@@ -158,7 +168,7 @@ let g:indentLine_char='┆'
 let g:indentLine_enabled = 1
 
 let g:tagbar_compact=1
-let tagbar_width=40
+let g:tagbar_width=40
 let g:tagbar_ctags_bin='ctags'
 "let g:tagbar_autofocus = 1
 
@@ -173,15 +183,6 @@ let g:airline_powerline_fonts = 1
 "let g:airline_left_sep = '\uE0B4'
 "let g:airline_right_sep = '\uE0B6'
 let g:airline#extensions#whitespace#enabled=1
-"let g:airline_theme="light"
-"let g:airline_theme="dark"
-"let g:airline_theme="badwolf"
-"let g:airline_theme="gruvbox"
-"let g:airline_theme="onedark"
-let g:airline_theme='one'
-"let g:airline_theme='papercolor'
-"let g:airline_theme="solarized"
-"let g:airline_theme="sol"
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -198,7 +199,7 @@ let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linen
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-let g:airline_symbols.space="\ua0"
+"let g:airline_symbols.space='\ua0'
 
 
 
@@ -230,7 +231,7 @@ au Syntax * RainbowParenthesesLoadBraces
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
-let c_no_curly_error=1
+let g:c_no_curly_error=1
 
 
 
@@ -238,11 +239,11 @@ augroup vimrc
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
 augroup END
 function RunCode()
-    let l:current_file_name_no_extension=expand("%:r")
+    let l:current_file_name_no_extension=expand('%:r')
     w
-    if (expand("%:e") == "py")
+    if (expand('%:e') == 'py')
         AsyncRun python -u %
-    elseif (expand("%:e") == "cpp")
+    elseif (expand('%:e') == 'cpp')
         let g:asyncrun_exit='!rm '. l:current_file_name_no_extension
         AsyncRun g++ -o %< % -std=c++11 `pkg-config --cflags --libs opencv`&&./%<
 
@@ -308,11 +309,11 @@ let g:ycm_key_invoke_completion = '<F6>'
 "let g:ycm_filetype_blacklist = {'python': 1, 'tagbar': 1, 'qf': 1, 'notes': 1, 'markdown': 1, 'unite': 1, 'vimwiki': 1, 'pandoc': 1, 'infolog': 1, 'mail': 1}
 
 function! s:onCompleteDone()
-    let abbr=v:completed_item.abbr
-    let startIdx=stridx(abbr,"(")
-    let endIdx=strridx(abbr,")")
-    if endIdx - startIdx >1
-        let argsStr=strpart(abbr,startIdx+1,endIdx-startIdx-1)
+    let l:abbr=v:completed_item.abbr
+    let l:startIdx=stridx(l:abbr,"(")
+    let l:endIdx=strridx(l:abbr,")")
+    if l:endIdx - l:startIdx >1
+        let argsStr=strpart(l:abbr,l:startIdx+1,l:endIdx-l:startIdx-1)
         let argsList=[]
         let arg=''
         let countParent=0
@@ -442,6 +443,8 @@ nmap F <Plug>CtrlSFQuickfixPrompt
 
 " 跳转到定义
 map gf :YcmCompleter GoTo<CR>
+map t :YcmCompleter GetType<CR>
+map m :YcmCompleter GetDoc<CR>
 
 let g:echodoc#enable_at_startup=1
 if has('nvim')
@@ -452,9 +455,10 @@ if has('nvim')
     let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
 
     let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_refresh_always=1
+    let g:deoplete#enable_refresh_always=0
     let g:deoplete#enable_smart_case=1
-    let g:deoplete#auto_complete_delay=10
+    let g:deoplete#auto_complete_delay=5
+    let g:deoplete#enable_camel_case=1
 
     let g:deoplete#sources#clang#libclang_path='/usr/local/opt/llvm/lib/libclang.dylib'
     let g:deoplete#sources#clang#clang_header='/usr/local/opt/llvm/include'
@@ -475,7 +479,7 @@ if has('nvim')
     let g:ale_sign_error = '>'
     let g:ale_sign_warning = '!'
     let g:ale_linters = {
-                \   'python': ['pylint'],
+                \   'python': ['flake8'],
                 \   'cpp': ['clang'],
                 \   'cmake': ['cmakelint'],
                 \   'vim': ['vint'],

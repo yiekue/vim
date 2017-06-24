@@ -3,7 +3,6 @@ au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup nobackup
 
-
 set number  "显示行号"
 set guioptions-=r " 隐藏右侧滚动条
 set guioptions-=L " 隐藏左侧滚动条
@@ -43,7 +42,7 @@ let g:mapleader=','
 "
 
 set nocompatible              " 去除VI一致性,必须
-"filetype off                  " 必须
+
 "设置包括vundle和初始化相关的runtime path
 "set rtp+=~/.vim/bundle/Vundle.vim
 "call vundle#begin()
@@ -60,9 +59,10 @@ if has('gui_running')
     Plug 'yonchu/accelerated-smooth-scroll'     "gui下平滑滚动
 endif
 Plug 'hdima/python-syntax', {'for': 'python'}       "Python语法高亮改进
-Plug 'kien/rainbow_parentheses.vim'     "彩虹括号
+"Plug 'kien/rainbow_parentheses.vim'     "彩虹括号
+Plug 'luochen1990/rainbow'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp']}      "c++语法高亮改进
-Plug 'kien/ctrlp.vim'       "目录内搜索文件
+Plug 'ctrlpvim/ctrlp.vim'       "目录内搜索文件
 Plug 'dyng/ctrlsf.vim'      "目录内搜索字符串
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun']}       "异步执行shell命令
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'     "代码片段
@@ -73,6 +73,9 @@ Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}     "代码格式化
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'groenewege/vim-less', {'for': 'less'}
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
+"Plug 'ryanoasis/vim-devicons'
+"Plug 'tenfyzhong/CompleteParameter.vim'
 
 Plug 'w0ng/vim-hybrid',{'do': 'cp ~/.vim/bundle/vim-hybrid/colors/hybrid.vim ~/.vim/colors'}
 Plug 'NLKNguyen/papercolor-theme'
@@ -82,26 +85,28 @@ Plug 'notpratheek/vim-sol'
 Plug 'rakr/vim-one'
 
 if has('nvim')
-    Plug 'arakashic/chromatica.nvim', {'for': ['cpp']}
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': ['vim', 'python', 'cpp'] }
     Plug 'zchee/deoplete-jedi', {'for': ['python']}
-    Plug 'zchee/deoplete-clang'
+    Plug 'zchee/deoplete-clang', {'for': 'cpp'}
+    "Plug 'tweekmonster/deoplete-clang2'
     Plug 'Shougo/neco-vim' , {'for': ['vim']}
     Plug 'Shougo/neco-syntax'
     Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/neoinclude.vim', {'for': 'cpp'}
-    "Plug 'Shougo/vimshell.vim'
-    Plug 'w0rp/ale'
+    "Plug 'roxma/clang_complete'
+    "Plug 'roxma/nvim-completion-manager'
+    Plug 'w0rp/ale', {'for': ['vim', 'cpp', 'python']}
 else
     Plug 'rdnetto/YCM-Generator',{'branch': 'stable'}
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}       "代码补全
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang'}       "代码补全
+    "Plug 'maralla/completor.vim'
 endif
 call plug#end()
 filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
 filetype on
 
 
-set background=dark    "设置背景色"
+set background=dark    "设置背景色
 "colorscheme evening
 "colorschem monokai     "设置主题样式
 "colorschem molokai
@@ -134,6 +139,7 @@ set background=dark    "设置背景色"
 "let g:gruvbox_italic=1
 "let g:airline_theme="gruvbox"
 
+"let g:one_allow_italics = 1
 set termguicolors
 colorscheme one
 let g:one_allow_italics = 1
@@ -145,10 +151,11 @@ let g:airline_theme='one'
 "let g:nord_italic_comments = 1
 "let g:airline_theme='nord'
 
-
 "let g:airline_theme="light"
 "let g:airline_theme="dark"
 "let g:airline_theme="badwolf"
+
+let g:rainbow_active = 1
 
 "/////////////YCM配置////////////////////////
 let g:NERDTreeChDirMode=2
@@ -160,6 +167,7 @@ let g:NERDTreeAutoDeleteBuffer=1
 ""au VimEnter * NERDTree              "打开vim时默认开启树
 let g:NERDTreeAutoCenter=1
 let g:NERDTreeMinimalUI=1
+
 
 "缩进指示线"
 let g:indentLine_char='┆'
@@ -188,8 +196,8 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 "set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 "set guifont=Consolas\ for\ Powerline\ 12
-"set guifont=MonacoForPowerline\ Nerd\ Font:h12.5
-set guifont=Monaco\ for\ Powerline:h12.5
+"set guifont=CodeNewRoman\ Nerd\ Font:h14
+set guifont=Monaco\ for\ Powerline:h13
 "set guifontwide=苹方-简
 if has('g:asyncrun_status')
     let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
@@ -202,7 +210,17 @@ endif
 "let g:airline_symbols.space='\ua0'
 
 
+" The Silver Searcher
+if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
 
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
 
 " 高亮括号插件
 "let g:rbpt_colorpairs = [ ['brown', 'RoyalBlue3'],
@@ -222,10 +240,10 @@ endif
 "\['darkred', 'DarkOrchid3'],
 "\['red', 'firebrick3']]
 let g:rbpt_max = 16
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
 
 " C++高亮
 let g:cpp_class_scope_highlight = 1
@@ -351,6 +369,9 @@ function! s:onCompleteDone()
     return UltiSnips#Anon(snippet)
 endfunction
 autocmd VimEnter * imap <expr> ( pumvisible() && exists('v:completed_item') && !empty(v:completed_item) && v:completed_item.word != '' && v:completed_item.kind == 'f' ? "\<C-R>=\<SID>onCompleteDone()\<CR>" : "<Plug>delimitMate("
+autocmd VimEnter * imap <silent> <expr> <TAB> delimitMate#ShouldJump() ? delimitMate#JumpAny() : "\<C-r>=UltiSnips#ExpandSnippetOrJump()\<CR>"
+autocmd VimEnter * inoremap <S-TAB> <S-TAB>
+autocmd VimEnter * imap <expr> <CR> pumvisible() ? (exists('v:completed_item') && !empty(v:completed_item) && v:completed_item.word != '' && v:completed_item.kind == 'f') ? "\<C-R>=\<SID>onCompleteDone()\<CR>" : "\<C-y>" : "\<Plug>delimitMateCR"
 
 function! g:UltiSnips_Complete()
     call UltiSnips#ExpandSnippet()
@@ -388,9 +409,6 @@ endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
-autocmd VimEnter * imap <silent> <expr> <TAB> delimitMate#ShouldJump() ? delimitMate#JumpAny() : "\<C-r>=UltiSnips#ExpandSnippetOrJump()\<CR>"
-autocmd VimEnter * inoremap <S-TAB> <S-TAB>
-autocmd VimEnter * imap <expr> <CR> pumvisible() ? (exists('v:completed_item') && !empty(v:completed_item) && v:completed_item.word != '' && v:completed_item.kind == 'f') ? "\<C-R>=\<SID>onCompleteDone()\<CR>" : "\<C-y>" : "\<Plug>delimitMateCR"
 
 "autocmd BufEnter,BufHidden *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
 
@@ -406,10 +424,8 @@ autocmd VimEnter * imap <expr> <CR> pumvisible() ? (exists('v:completed_item') &
 "endfunction
 
 
-"let g:completor_python_binary = '/usr/local/bin/python'
-
-
-
+let g:complete_parameter_mapping_goto_next = '<TAB>'
+let g:complete_parameter_mapping_goto_previous = '<S-TAB>'
 
 
 
@@ -451,8 +467,8 @@ if has('nvim')
     set noshowmode
     "set cmdheight=2
 
-    let g:chromatica#enable_at_startup=1
-    let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
+    "let g:chromatica#enable_at_startup=1
+    "let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
 
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_refresh_always=0
@@ -462,7 +478,7 @@ if has('nvim')
 
     let g:deoplete#sources#clang#libclang_path='/usr/local/opt/llvm/lib/libclang.dylib'
     let g:deoplete#sources#clang#clang_header='/usr/local/opt/llvm/include'
-    let g:deoplete#sources#clang#flags=['-I/usr/local/include', '-I/usr/local/include/eigen3']
+    let g:deoplete#sources#clang#flags=['-I/usr/include', '-I/usr/local/include', '-I/usr/local/include/eigen3']
 
     function! LinterStatus() abort
         let l:counts = ale#statusline#Count(bufnr(''))
@@ -475,7 +491,7 @@ if has('nvim')
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
     let g:ale_set_loclist = 0
-    let g:ale_set_quickfix = 1
+    let g:ale_set_quickfix = 0
     let g:ale_sign_error = '>'
     let g:ale_sign_warning = '!'
     let g:ale_linters = {
@@ -484,8 +500,18 @@ if has('nvim')
                 \   'cmake': ['cmakelint'],
                 \   'vim': ['vint'],
                 \}
+    map <C-n> :ALENextWrap<CR>
+    map <S-p> :ALEPreviousWrap<CR>
+
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 else
     let g:airline#extensions#ycm#enabled = 1
     let g:airline#extensions#ycm#error_symbol = 'E:'
     let g:airline#extensions#ycm#warning_symbol = 'W:'
 endif
+
+"let g:clang_library_path='/usr/local/opt/llvm/lib/libclang.dylib'
+"let g:completor_python_binary='/usr/local/bin/python'
+"let g:competor_clang_binary='/usr/bin/clang'

@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/tangling/code/opencv-3.2.0/cmake'
-let g:netrw_dirhist_2='/Users/tangling/.vim/bundle/YouCompleteMe/third_party/ycmd'
-let g:netrw_dirhist_3='/Users/tangling/code/blog/.deploy_git'
-let g:netrw_dirhist_4='/Users/tangling/code/blog/.deploy_git/.git'
-let g:netrw_dirhist_5='/Users/tangling/code/blog/.deploy_git'
-let g:netrw_dirhist_6='/Users/tangling/code/blog/themes/indigo'

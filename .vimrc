@@ -74,6 +74,8 @@ Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}     "代码格式化
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'groenewege/vim-less', {'for': 'less'}
 Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
+Plug 'easymotion/vim-easymotion'
+
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'tenfyzhong/CompleteParameter.vim'
 
@@ -267,6 +269,10 @@ function RunCode()
 
     elseif (expand("%:e") == "c")
         AsyncRun clang -o %< %&./%<
+    elseif (expand('%:e')=="go")
+        AsyncRun go run %
+    else
+        echo "filetype error: " . expand('%:e')
     endif
 endfunction
 
@@ -446,7 +452,7 @@ map <F3> :TagbarToggle<CR>
 map <F4> <leader>ci
 map <F5> :UndotreeToggle<CR>
 map <F8> :Autoformat<CR>
-map <F9> :call RunCode()<CR>
+nmap <C-r> :call RunCode()<CR>
 
 nmap <space> :
 vmap <space> :
@@ -467,9 +473,6 @@ if has('nvim')
     set noshowmode
     "set cmdheight=2
 
-    "let g:chromatica#enable_at_startup=1
-    "let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
-
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_refresh_always=0
     let g:deoplete#enable_smart_case=1
@@ -478,7 +481,10 @@ if has('nvim')
 
     let g:deoplete#sources#clang#libclang_path='/usr/local/opt/llvm/lib/libclang.dylib'
     let g:deoplete#sources#clang#clang_header='/usr/local/opt/llvm/include'
-    let g:deoplete#sources#clang#flags=['-I/usr/include', '-I/usr/local/include', '-I/usr/local/include/eigen3']
+    let g:nomal_flags=['-I/usr/include', '-I/usr/local/include', '-I/usr/local/include/eigen3']
+    let g:deoplete#sources#clang#flags=g:nomal_flags
+    let g:init_dir=expand('%:p:h')
+    autocmd BufEnter,BufHidden *.c,*.cpp,*.cc,*.cxx,*.h,*.hxx,*.hpp call ResetFlags()
 
     function! LinterStatus() abort
         let l:counts = ale#statusline#Count(bufnr(''))
@@ -512,6 +518,22 @@ else
     let g:airline#extensions#ycm#warning_symbol = 'W:'
 endif
 
-"let g:clang_library_path='/usr/local/opt/llvm/lib/libclang.dylib'
-"let g:completor_python_binary='/usr/local/bin/python'
-"let g:competor_clang_binary='/usr/bin/clang'
+
+function ResetFlags()
+    "echo 'call ResetFlags'
+    let l:cur_dir = expand('%:p:h')
+    if l:cur_dir == g:init_dir
+        return
+    else
+        let l:cur_flags=['.']
+        let l:par_dir=expand('%:p:h:h')
+        call add(l:cur_flags,'-I' . l:cur_dir)
+        call add(l:cur_flags,'-I' . l:par_dir)
+        call add(l:cur_flags,'-I' . l:cur_dir . '/include')
+        call add(l:cur_flags,'-I' . l:cur_dir . '/inc')
+        call add(l:cur_flags,'-I' . l:par_dir . '/include')
+        call add(l:cur_flags,'-I' . l:par_dir . '/inc')
+        let g:deoplete#sources#clang#flags=g:nomal_flags + l:cur_flags
+    endif
+endfunction
+
